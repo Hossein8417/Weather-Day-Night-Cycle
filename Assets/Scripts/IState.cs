@@ -1,0 +1,6 @@
+public interface IState
+{
+    void Enter(WeatherStateManager weatherManager);
+    void UpdateState(WeatherStateManager weatherManager);
+    void Exit(WeatherStateManager weatherManager);
+}
