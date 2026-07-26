@@ -10,7 +10,7 @@ public class WeatherStateManager : MonoBehaviour
     public CloudyState cloudyState = new CloudyState();
     public SnowyState snowyState = new SnowyState();
 
-    public Data data;
+    public WeatherData data;
     
     void Start()
     {
