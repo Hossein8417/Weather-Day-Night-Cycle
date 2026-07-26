@@ -12,14 +12,14 @@ public class CloudyState : IState
     }
 
     public void UpdateState(WeatherStateManager weatherManager) {
-
+        weatherManager.data.rainyParticle.gameObject.SetActive(false);
+        weatherManager.data.snowyParticle.gameObject.SetActive(false);
         weatherManager.data.sun.colorTemperature = 11242;
         SetLightIntensityInLux(80000, weatherManager);
         //wind sound 
         //grass movement
         //tree movement
         //turm on/turn off light
-        //particle systems
         SwitchWeather(weatherManager);
     }
 
@@ -27,9 +27,8 @@ public class CloudyState : IState
     {
         if (Input.GetKeyDown(KeyCode.Space))
         {
-            Debug.Log("Pressed!");
-            weatherManager.ChangeState(weatherManager.rainyState);
             Exit(weatherManager);
+            weatherManager.ChangeState(weatherManager.rainyState);   
         }
 
     }

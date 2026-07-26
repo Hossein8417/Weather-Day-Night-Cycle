@@ -6,16 +6,21 @@ public class SnowyState : IState
 {
     public void Enter(WeatherStateManager weatherManager) {
         weatherManager.data.snowyVolume.SetActive(true);
+        weatherManager.data.ground.GetComponent<Renderer>().material = weatherManager.data.snowMaterial;
     }
 
     public void UpdateState(WeatherStateManager weatherManager) {
+        weatherManager.data.rainyParticle.gameObject.SetActive(false);
+        weatherManager.data.snowyParticle.gameObject.SetActive(true);
+        weatherManager.data.snowyParticle.Play();
         weatherManager.data.sun.colorTemperature = 11000;
         SetLightIntensityInLux(71000, weatherManager);
+
+        
         //wind sound 
         //grass movement
         //tree movement
         //turm on/turn off light
-        //particle systems
         SwitchWeather(weatherManager);
     }
 
@@ -23,12 +28,14 @@ public class SnowyState : IState
     {
         if (Input.GetKeyDown(KeyCode.Space))
         {
-            Debug.Log("Pressed!");
-            weatherManager.ChangeState(weatherManager.sunnyState);
             Exit(weatherManager);
+            weatherManager.ChangeState(weatherManager.sunnyState);
         }
     }
     public void Exit(WeatherStateManager weatherManager) {
+        weatherManager.data.ground.GetComponent<Renderer>().material = weatherManager.data.defaultMaterial;
+        weatherManager.data.snowyParticle.Stop();
+        weatherManager.data.snowyParticle.gameObject.SetActive(false);
         weatherManager.data.sun.colorTemperature = 5000;
         weatherManager.data.sun.luxAtDistance = 130000;
         weatherManager.data.snowyVolume.SetActive(false);

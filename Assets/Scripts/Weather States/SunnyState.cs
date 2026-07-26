@@ -14,6 +14,8 @@ public class SunnyState : IState
     }
 
     public void UpdateState(WeatherStateManager weatherManager) {
+        weatherManager.data.rainyParticle.gameObject.SetActive(false);
+        weatherManager.data.snowyParticle.gameObject.SetActive(false);
         weatherManager.data.sun.colorTemperature = 3828;
         SetLightIntensityInLux(130000, weatherManager);
 
@@ -29,9 +31,8 @@ public class SunnyState : IState
     {
         if (Input.GetKeyDown(KeyCode.Space))
         {
-            Debug.Log("Pressed!");
-            weatherManager.ChangeState(weatherManager.cloudyState);
             Exit(weatherManager);
+            weatherManager.ChangeState(weatherManager.cloudyState);   
         }
 
     }

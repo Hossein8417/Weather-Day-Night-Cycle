@@ -1,3 +1,4 @@
+using UnityEditor.SpeedTree.Importer;
 using UnityEngine;
 
 public class WeatherData : MonoBehaviour
@@ -15,4 +16,12 @@ public class WeatherData : MonoBehaviour
     [Header("ParticleSystems")]
     public ParticleSystem rainyParticle;
     public ParticleSystem snowyParticle;
+
+    [Header("Materials")]
+    public Material snowMaterial;
+    public Material defaultMaterial;
+
+    [Header("Objects")]
+    public GameObject ground;
+
 }

@@ -1,10 +1,8 @@
 using UnityEngine;
 public class WeatherStateManager : MonoBehaviour
 {
-
-
     IState currentState;
-
+    public DefaultState defaultState = new DefaultState();
     public SunnyState sunnyState = new SunnyState();
     public RainyState rainyState = new RainyState();
     public CloudyState cloudyState = new CloudyState();
@@ -14,7 +12,7 @@ public class WeatherStateManager : MonoBehaviour
     
     void Start()
     {
-        currentState = sunnyState;
+        currentState = defaultState;
 
         currentState.Enter(this);
     }
@@ -25,11 +23,15 @@ public class WeatherStateManager : MonoBehaviour
         currentState.UpdateState(this);
     }
 
-    public void ChangeState(IState newState) { 
+    public void ChangeState(IState newState) {
 
+        if (newState == currentState) return;
+
+        currentState.Exit(this);
+        
         currentState = newState;
 
         newState.Enter(this);
 
-    }
+    }    
 }
