@@ -12,6 +12,7 @@ public class WeatherData : MonoBehaviour
     public GameObject rainyVolume;
     public GameObject snowyVolume;
 
-    //[Header("ParticleSystems")]
-
+    [Header("ParticleSystems")]
+    public ParticleSystem rainyParticle;
+    public ParticleSystem snowyParticle;
 }
