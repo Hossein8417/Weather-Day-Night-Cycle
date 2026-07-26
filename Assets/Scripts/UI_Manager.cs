@@ -6,8 +6,10 @@ public class UI_Manager : MonoBehaviour
     public UIData uiData;
 
     public WeatherStateManager weatherManager;
+    public TimeStateManager timeManager;
 
-    List<TMP_Dropdown.OptionData> options = new List<TMP_Dropdown.OptionData> {
+
+    List<TMP_Dropdown.OptionData> weatherOptions = new List<TMP_Dropdown.OptionData> {
         new TMP_Dropdown.OptionData("Default"),
         new TMP_Dropdown.OptionData("Sunny"),
         new TMP_Dropdown.OptionData("Cloudy"),
@@ -15,12 +17,26 @@ public class UI_Manager : MonoBehaviour
         new TMP_Dropdown.OptionData("Snowy"),
     };
 
+    List<TMP_Dropdown.OptionData> timeOption = new List<TMP_Dropdown.OptionData> {
+        new TMP_Dropdown.OptionData("Default"),
+        new TMP_Dropdown.OptionData("Morning"),
+        new TMP_Dropdown.OptionData("Midday"),
+        new TMP_Dropdown.OptionData("Evening"),
+        new TMP_Dropdown.OptionData("Night")
+    };
+
     private void Start()
     {
         uiData.weatherDropdown.ClearOptions();
-        uiData.weatherDropdown.AddOptions(options);
+        uiData.weatherDropdown.AddOptions(weatherOptions);
         uiData.weatherDropdown.onValueChanged.AddListener(OnWeatherChanged);
         weatherManager.GetComponent<WeatherStateManager>();
+
+        uiData.timeDropdown.ClearOptions();
+        uiData.timeDropdown.AddOptions(timeOption);
+        uiData.timeDropdown.onValueChanged.AddListener(OnTimeChanged);
+        timeManager.GetComponent<TimeStateManager>();
+
 
     }
     public void OnWeatherChanged(int index) {
@@ -49,4 +65,33 @@ public class UI_Manager : MonoBehaviour
                 break;
         }
     }
+
+    public void OnTimeChanged(int index)
+    {
+
+
+        switch (index)
+        {
+            case 0:
+                timeManager.ChangeState(timeManager.defaultTimeState);
+                break;
+
+            case 1:
+                timeManager.ChangeState(timeManager.morningState);
+                break;
+
+            case 2:
+                timeManager.ChangeState(timeManager.middayState);
+                break;
+
+            case 3:
+                timeManager.ChangeState(timeManager.eveningState);
+                break;
+
+            case 4:
+                timeManager.ChangeState(timeManager.nightState);
+                break;
+        }
+    }
+
 }

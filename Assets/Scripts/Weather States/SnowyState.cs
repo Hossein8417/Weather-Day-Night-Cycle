@@ -2,11 +2,14 @@ using UnityEngine;
 using UnityEngine.Rendering;
 using UnityEngine.Rendering.HighDefinition;
 
-public class SnowyState : IState
+public class SnowyState : IWeatherState
 {
+    Vector3 stateRotation = new Vector3(60f, 0f, 0f);
+    Vector3 defaultRotation = new Vector3(0f, 0f, 0f); 
     public void Enter(WeatherStateManager weatherManager) {
         weatherManager.data.snowyVolume.SetActive(true);
         weatherManager.data.ground.GetComponent<Renderer>().material = weatherManager.data.snowMaterial;
+        weatherManager.data.sun.transform.rotation = Quaternion.Euler(stateRotation);
     }
 
     public void UpdateState(WeatherStateManager weatherManager) {
@@ -34,6 +37,7 @@ public class SnowyState : IState
     }
     public void Exit(WeatherStateManager weatherManager) {
         weatherManager.data.ground.GetComponent<Renderer>().material = weatherManager.data.defaultMaterial;
+        weatherManager.data.sun.transform.rotation = Quaternion.Euler(defaultRotation);
         weatherManager.data.snowyParticle.Stop();
         weatherManager.data.snowyParticle.gameObject.SetActive(false);
         weatherManager.data.sun.colorTemperature = 5000;

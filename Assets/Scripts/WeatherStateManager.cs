@@ -1,35 +1,35 @@
 using UnityEngine;
 public class WeatherStateManager : MonoBehaviour
 {
-    IState currentState;
+    IWeatherState currentWeatherState;
     public DefaultState defaultState = new DefaultState();
     public SunnyState sunnyState = new SunnyState();
     public RainyState rainyState = new RainyState();
     public CloudyState cloudyState = new CloudyState();
     public SnowyState snowyState = new SnowyState();
 
-    public WeatherData data;
+    public Data data;
     
     void Start()
     {
-        currentState = defaultState;
+        currentWeatherState = defaultState;
 
-        currentState.Enter(this);
+        currentWeatherState.Enter(this);
     }
 
 
     void Update()
     {
-        currentState.UpdateState(this);
+        currentWeatherState.UpdateState(this);
     }
 
-    public void ChangeState(IState newState) {
+    public void ChangeState(IWeatherState newState) {
 
-        if (newState == currentState) return;
+        if (newState == currentWeatherState) return;
 
-        currentState.Exit(this);
+        currentWeatherState.Exit(this);
         
-        currentState = newState;
+        currentWeatherState = newState;
 
         newState.Enter(this);
 

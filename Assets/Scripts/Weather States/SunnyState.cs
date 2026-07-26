@@ -2,9 +2,10 @@ using UnityEngine;
 using UnityEngine.Rendering;
 using UnityEngine.Rendering.HighDefinition;
 
-public class SunnyState : IState
+public class SunnyState : IWeatherState
 {
-
+    Vector3 stateRotation = new Vector3(35f, 0f, 0f);
+    Vector3 defaultRotation = new Vector3(0f, 0f, 0f);
     public void Enter(WeatherStateManager weatherManager) {
 
         if (weatherManager.data!= null)
@@ -14,6 +15,7 @@ public class SunnyState : IState
     }
 
     public void UpdateState(WeatherStateManager weatherManager) {
+        weatherManager.data.sun.transform.rotation = Quaternion.Euler(stateRotation);
         weatherManager.data.rainyParticle.gameObject.SetActive(false);
         weatherManager.data.snowyParticle.gameObject.SetActive(false);
         weatherManager.data.sun.colorTemperature = 3828;
@@ -38,6 +40,7 @@ public class SunnyState : IState
     }
 
     public void Exit(WeatherStateManager weatherManager) {
+        weatherManager.data.sun.transform.rotation = Quaternion.Euler(defaultRotation);
         weatherManager.data.sun.colorTemperature = 5000;
         weatherManager.data.sun.luxAtDistance = 130000;
         weatherManager.data.sunnyVolume.SetActive(false);
