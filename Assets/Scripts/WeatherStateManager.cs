@@ -17,12 +17,6 @@ public class WeatherStateManager : MonoBehaviour
         currentWeatherState.Enter(this);
     }
 
-
-    void Update()
-    {
-        currentWeatherState.UpdateState(this);
-    }
-
     public void ChangeState(IWeatherState newState) {
 
         if (newState == currentWeatherState) return;

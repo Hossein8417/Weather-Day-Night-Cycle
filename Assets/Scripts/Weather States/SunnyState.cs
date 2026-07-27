@@ -11,34 +11,13 @@ public class SunnyState : IWeatherState
         if (weatherManager.data!= null)
         {
             weatherManager.data.sunnyVolume.SetActive(true);
+            weatherManager.data.sun.transform.rotation = Quaternion.Euler(stateRotation);
+            weatherManager.data.rainyParticle.gameObject.SetActive(false);
+            weatherManager.data.snowyParticle.gameObject.SetActive(false);
+            weatherManager.data.sun.colorTemperature = 3828;
+            SetLightIntensityInLux(130000, weatherManager);
         }
     }
-
-    public void UpdateState(WeatherStateManager weatherManager) {
-        weatherManager.data.sun.transform.rotation = Quaternion.Euler(stateRotation);
-        weatherManager.data.rainyParticle.gameObject.SetActive(false);
-        weatherManager.data.snowyParticle.gameObject.SetActive(false);
-        weatherManager.data.sun.colorTemperature = 3828;
-        SetLightIntensityInLux(130000, weatherManager);
-
-        //wind sound 
-        //grass movement
-        //tree movement
-        //turm on/turn off light
-        SwitchWeather(weatherManager);
-
-    }
-
-    public void SwitchWeather(WeatherStateManager weatherManager)
-    {
-        if (Input.GetKeyDown(KeyCode.Space))
-        {
-            Exit(weatherManager);
-            weatherManager.ChangeState(weatherManager.cloudyState);   
-        }
-
-    }
-
     public void Exit(WeatherStateManager weatherManager) {
         weatherManager.data.sun.transform.rotation = Quaternion.Euler(defaultRotation);
         weatherManager.data.sun.colorTemperature = 5000;
