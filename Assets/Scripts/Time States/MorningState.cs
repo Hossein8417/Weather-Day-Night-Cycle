@@ -14,16 +14,6 @@ public class MorningState : ITimeState
         timeManager.data.sun.transform.rotation =  Quaternion.Euler(stateRotation);
         timeManager.data.sun.colorTemperature = 5500;
         SetLightIntensityInLux(50000, timeManager);
-
-
-
-    }
-    public void UpdateState(TimeStateManager timeManager) { 
-
-
-    }
-    public void SwitchWeather(TimeStateManager timeManager) { 
-    
     }
 
     public void Exit(TimeStateManager timeManager) {

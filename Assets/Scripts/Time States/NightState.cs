@@ -12,10 +12,8 @@ public class NightState : ITimeState
         timeManager.data.sun.colorTemperature = 20000;
         SetLightIntensityInLux(0.5f, timeManager);
         timeManager.data.light.gameObject.SetActive(true);
-
     }
-    public void UpdateState(TimeStateManager timeManager) { }
-    public void SwitchWeather(TimeStateManager timeManager) { }
+
     public void Exit(TimeStateManager timeManager) {
         timeManager.data.sun.transform.rotation = Quaternion.Euler(defaultRotation);
         timeManager.data.sun.colorTemperature = 5000;

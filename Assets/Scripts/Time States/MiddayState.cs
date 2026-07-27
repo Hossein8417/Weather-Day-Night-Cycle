@@ -14,8 +14,7 @@ public class MiddayState : ITimeState
         SetLightIntensityInLux(100000, timeManager);
 
     }
-    public void UpdateState(TimeStateManager timeManager) { }
-    public void SwitchWeather(TimeStateManager timeManager) { }
+
     public void Exit(TimeStateManager timeManager) {
         timeManager.data.sun.transform.rotation = Quaternion.Euler(defaultRotation);
         timeManager.data.sun.colorTemperature = 5000;
