@@ -426,7 +426,7 @@ MonoBehaviour:
     m_Value: 0
   cloudSimpleMode:
     m_OverrideState: 1
-    m_Value: 0
+    m_Value: 1
   m_CloudPreset:
     m_OverrideState: 1
     m_Value: 4
@@ -583,7 +583,7 @@ MonoBehaviour:
       m_RotationOrder: 4
   scatteringTint:
     m_OverrideState: 1
-    m_Value: {r: 0, g: 0, b: 0, a: 1}
+    m_Value: {r: 0.381132, g: 0.381132, b: 0.381132, a: 1}
   powderEffectIntensity:
     m_OverrideState: 0
     m_Value: 0.25
@@ -592,7 +592,7 @@ MonoBehaviour:
     m_Value: 0.5
   densityMultiplier:
     m_OverrideState: 1
-    m_Value: 0.124
+    m_Value: 0.105
   shapeFactor:
     m_OverrideState: 1
     m_Value: 0.612
@@ -675,7 +675,7 @@ MonoBehaviour:
     m_Value: 1
   shadowResolution:
     m_OverrideState: 1
-    m_Value: 512
+    m_Value: 1024
   shadowDistance:
     m_OverrideState: 0
     m_Value: 8000
@@ -759,10 +759,10 @@ MonoBehaviour:
     m_Value: -0.56
   limitMin:
     m_OverrideState: 1
-    m_Value: 0.06512815
+    m_Value: 15
   limitMax:
     m_OverrideState: 1
-    m_Value: 15
+    m_Value: 13.392857
   curveMap:
     m_OverrideState: 1
     m_Value:
@@ -855,7 +855,7 @@ MonoBehaviour:
     m_Value: {fileID: 0}
   histogramPercentages:
     m_OverrideState: 1
-    m_Value: {x: 40, y: 90}
+    m_Value: {x: 50, y: 100}
   histogramUseCurveRemapping:
     m_OverrideState: 1
     m_Value: 0
@@ -928,7 +928,7 @@ MonoBehaviour:
     m_Value: 12.5
   meanFreePath:
     m_OverrideState: 1
-    m_Value: 67.4
+    m_Value: 135.3
   enableVolumetricFog:
     m_OverrideState: 1
     m_Value: 1

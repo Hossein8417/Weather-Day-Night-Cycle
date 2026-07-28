@@ -13,7 +13,7 @@ public class CloudyState : IState
             manager.data.sun.transform.rotation = Quaternion.Euler(stateRotation);
             manager.data.rainyParticle.gameObject.SetActive(false);
             manager.data.snowyParticle.gameObject.SetActive(false);
-            manager.data.sun.colorTemperature = 11242;
+            manager.data.sun.colorTemperature = 7081;
             SetLightIntensityInLux(80000, manager);
         }
     }

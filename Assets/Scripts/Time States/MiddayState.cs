@@ -4,14 +4,14 @@ using UnityEngine.Rendering.HighDefinition;
 
 public class MiddayState : IState
 {
-    Vector3 stateRotation = new Vector3(90f, 180f, 0f);
+    Vector3 stateRotation = new Vector3(90f, 200f, 0f);
     Vector3 defaultRotation = new Vector3(0f, 0f, 0f);
     public void Enter(Manager manager) {
 
         manager.data.middayVolume.SetActive(true);
         manager.data.sun.transform.rotation = Quaternion.Euler(stateRotation);
-        manager.data.sun.colorTemperature = 6500;
-        SetLightIntensityInLux(100000, manager);
+        manager.data.sun.colorTemperature = 4500;
+        SetLightIntensityInLux(80000, manager);
 
     }
 

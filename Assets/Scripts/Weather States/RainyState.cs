@@ -1,7 +1,6 @@
 using UnityEngine;
 using UnityEngine.Rendering;
 using UnityEngine.Rendering.HighDefinition;
-
 public class RainyState : IState
 {
     Vector3 stateRotation = new Vector3(150f, 0f, 0f);
@@ -13,8 +12,10 @@ public class RainyState : IState
         manager.data.snowyParticle.gameObject.SetActive(false);
         manager.data.rainyParticle.Play();
         manager.data.sun.colorTemperature = 11242;
-        SetLightIntensityInLux(10000, manager);
+        SetSunIntensityInLux(10000, manager);
         manager.data.light.gameObject.SetActive(true);
+        manager.data.light.colorTemperature = 6233;
+        SetLightLux(130000, manager);
     }
 
     public void Exit(Manager manager) {
@@ -26,9 +27,18 @@ public class RainyState : IState
         manager.data.light.gameObject.SetActive(false);
         manager.data.rainyVolume.SetActive(false);
     }
-    void SetLightIntensityInLux(float luxValue, Manager manager)
+    void SetSunIntensityInLux(float luxValue, Manager manager)
     {
         if (manager.data.sun.TryGetComponent<HDAdditionalLightData>(out var hdLightData))
+        {
+            LightUnit lux = UnityEngine.Rendering.LightUnit.Lux;
+            hdLightData.SetIntensity(luxValue, lux);
+        }
+
+    }
+    void SetLightLux(float luxValue, Manager manager)
+    {
+        if (manager.data.light.TryGetComponent<HDAdditionalLightData>(out var hdLightData))
         {
             LightUnit lux = UnityEngine.Rendering.LightUnit.Lux;
             hdLightData.SetIntensity(luxValue, lux);

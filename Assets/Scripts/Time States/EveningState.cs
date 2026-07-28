@@ -13,6 +13,7 @@ public class EveningState : IState
         manager.data.sun.colorTemperature = 4500;
         SetLightIntensityInLux(3369, manager);
         manager.data.light.gameObject.SetActive(true);
+        //set lump values 
 
     }
     public void Exit(Manager manager) {

@@ -186,10 +186,10 @@ MonoBehaviour:
     m_Value: {x: 0, y: 0}
   bottomAltitude:
     m_OverrideState: 1
-    m_Value: 6501
+    m_Value: 5361
   altitudeRange:
     m_OverrideState: 1
-    m_Value: 365.1
+    m_Value: 100
   fadeInMode:
     m_OverrideState: 1
     m_Value: 0
@@ -218,7 +218,7 @@ MonoBehaviour:
     m_Value: 0
   cloudSimpleMode:
     m_OverrideState: 1
-    m_Value: 0
+    m_Value: 1
   m_CloudPreset:
     m_OverrideState: 1
     m_Value: 4
@@ -375,7 +375,7 @@ MonoBehaviour:
     m_Value: 0.5
   densityMultiplier:
     m_OverrideState: 1
-    m_Value: 0.11
+    m_Value: 1
   shapeFactor:
     m_OverrideState: 1
     m_Value: 1
@@ -390,7 +390,7 @@ MonoBehaviour:
     m_Value: 0
   erosionScale:
     m_OverrideState: 1
-    m_Value: 22.1
+    m_Value: 84.7
   erosionNoiseType:
     m_OverrideState: 1
     m_Value: 1
@@ -399,10 +399,10 @@ MonoBehaviour:
     m_Value: 0
   microErosionFactor:
     m_OverrideState: 1
-    m_Value: 0.65
+    m_Value: 0.98
   microErosionScale:
     m_OverrideState: 1
-    m_Value: 300
+    m_Value: 385.4
   ambientLightProbeDimmer:
     m_OverrideState: 1
     m_Value: 1
@@ -516,7 +516,7 @@ MonoBehaviour:
     m_Value: 597.6
   meanFreePath:
     m_OverrideState: 1
-    m_Value: 5000
+    m_Value: 2404
   enableVolumetricFog:
     m_OverrideState: 1
     m_Value: 1
@@ -842,8 +842,8 @@ MonoBehaviour:
     m_OverrideState: 1
     m_Value: 4
   cloudType:
-    m_OverrideState: 0
-    m_Value: 0
+    m_OverrideState: 1
+    m_Value: 1
   skyAmbientMode:
     m_OverrideState: 1
     m_Value: 0

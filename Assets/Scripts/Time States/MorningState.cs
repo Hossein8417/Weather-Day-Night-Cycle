@@ -13,7 +13,7 @@ public class MorningState : IState
         manager.data.morningVolume.SetActive(true);
         manager.data.sun.transform.rotation =  Quaternion.Euler(stateRotation);
         manager.data.sun.colorTemperature = 5500;
-        SetLightIntensityInLux(50000, manager);
+        SetLightIntensityInLux(100000, manager);
     }
 
     public void Exit(Manager manager) {
