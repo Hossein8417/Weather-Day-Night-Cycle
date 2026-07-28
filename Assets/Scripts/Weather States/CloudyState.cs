@@ -9,28 +9,42 @@ public class CloudyState : IState
     public void Enter(Manager manager) {
         if (manager.data != null)
         {
-            manager.data.cloudyVolume.SetActive(true);
-            manager.data.sun.transform.rotation = Quaternion.Euler(stateRotation);
-            manager.data.rainyParticle.gameObject.SetActive(false);
-            manager.data.snowyParticle.gameObject.SetActive(false);
-            manager.data.sun.colorTemperature = 7081;
-            SetLightIntensityInLux(80000, manager);
+            SetSunOn(manager);
+            SetVolumeOn(manager);
         }
+        else Debug.LogWarning("Missing *manager*");
     }
 
     public void Exit(Manager manager) {
-        manager.data.sun.transform.rotation = Quaternion.Euler(defaultRotation);
-        manager.data.sun.colorTemperature = 5000;
-        manager.data.sun.luxAtDistance = 130000;
-        manager.data.cloudyVolume.SetActive(false);
+        SetSunOff(manager);
+        SetVolumeOff(manager);
     }
-    void SetLightIntensityInLux(float luxValue, Manager manager)
+    public void SetLightIntensityInLux(float luxValue, Manager manager)
     {
         if (manager.data.sun.TryGetComponent<HDAdditionalLightData>(out var hdLightData))
         {
             LightUnit lux = UnityEngine.Rendering.LightUnit.Lux;
             hdLightData.SetIntensity(luxValue, lux);
         }
+    }
+    public void SetSunOn(Manager manager) { 
+        manager.data.sun.transform.rotation = Quaternion.Euler(stateRotation);
+        manager.data.sun.colorTemperature = 7081;
+        SetLightIntensityInLux(80000, manager);
+    }
 
+    public void SetSunOff(Manager manager) {
+        manager.data.sun.transform.rotation = Quaternion.Euler(defaultRotation);
+        manager.data.sun.colorTemperature = 5000;
+        manager.data.sun.luxAtDistance = 130000;
+    }
+
+    public void SetVolumeOn(Manager manager)
+    {
+        manager.data.cloudyVolume.SetActive(true);
+    }
+    public void SetVolumeOff(Manager manager)
+    {
+        manager.data.cloudyVolume.SetActive(false);
     }
 }

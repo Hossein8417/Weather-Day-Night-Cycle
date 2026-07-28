@@ -6,26 +6,20 @@ public class RainyState : IState
     Vector3 stateRotation = new Vector3(150f, 0f, 0f);
     Vector3 defaultRotation = new Vector3(0f, 0f, 0f);
     public void Enter(Manager manager) {
-        manager.data.rainyVolume.SetActive(true);
-        manager.data.sun.transform.rotation = Quaternion.Euler(stateRotation);
-        manager.data.rainyParticle.gameObject.SetActive(true);
-        manager.data.snowyParticle.gameObject.SetActive(false);
-        manager.data.rainyParticle.Play();
-        manager.data.sun.colorTemperature = 11242;
-        SetSunIntensityInLux(10000, manager);
-        manager.data.light.gameObject.SetActive(true);
-        manager.data.light.colorTemperature = 6233;
-        SetLightLux(130000, manager);
+        if (manager.data != null) {
+            SetSunOn(manager);
+            SetVolumeOn(manager);
+            SetParticleOn(manager);
+        }
+        else Debug.LogWarning("Missing *manager*");
+
     }
 
     public void Exit(Manager manager) {
-        manager.data.rainyParticle.Stop();
-        manager.data.sun.transform.rotation = Quaternion.Euler(defaultRotation);
-        manager.data.rainyParticle.gameObject.SetActive(false);
-        manager.data.sun.colorTemperature = 5000;
-        manager.data.sun.luxAtDistance = 130000;
-        manager.data.light.gameObject.SetActive(false);
-        manager.data.rainyVolume.SetActive(false);
+        SetSunOff(manager);
+        SetVolumeOff(manager);
+
+        SetParticleOff(manager);
     }
     void SetSunIntensityInLux(float luxValue, Manager manager)
     {
@@ -36,13 +30,31 @@ public class RainyState : IState
         }
 
     }
-    void SetLightLux(float luxValue, Manager manager)
+    public void SetSunOn(Manager manager) {
+        manager.data.sun.transform.rotation = Quaternion.Euler(stateRotation);
+        manager.data.sun.colorTemperature = 11242;
+        SetSunIntensityInLux(10000, manager);
+    }
+    public void SetSunOff(Manager manager) {
+        manager.data.sun.transform.rotation = Quaternion.Euler(defaultRotation);
+        manager.data.sun.colorTemperature = 5000;
+        SetSunIntensityInLux(130000, manager);
+    }
+    public void SetVolumeOn(Manager manager)
     {
-        if (manager.data.light.TryGetComponent<HDAdditionalLightData>(out var hdLightData))
-        {
-            LightUnit lux = UnityEngine.Rendering.LightUnit.Lux;
-            hdLightData.SetIntensity(luxValue, lux);
-        }
-
+        manager.data.rainyVolume.SetActive(true);
+    }
+    public void SetVolumeOff(Manager manager)
+    {
+        manager.data.rainyVolume.SetActive(false);
+    }
+    public void SetParticleOn(Manager manager ) {
+        manager.data.rainyParticle.gameObject.SetActive(true);
+        manager.data.rainyParticle.Play();
+    }
+    public void SetParticleOff(Manager manager)
+    {
+        manager.data.rainyParticle.Stop();
+        manager.data.rainyParticle.gameObject.SetActive(false);
     }
 }
