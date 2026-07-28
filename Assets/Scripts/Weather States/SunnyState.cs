@@ -2,30 +2,30 @@ using UnityEngine;
 using UnityEngine.Rendering;
 using UnityEngine.Rendering.HighDefinition;
 
-public class SunnyState : IWeatherState
+public class SunnyState : IState
 {
     Vector3 stateRotation = new Vector3(35f, 0f, 0f);
     Vector3 defaultRotation = new Vector3(0f, 0f, 0f);
-    public void Enter(WeatherStateManager weatherManager) {
+    public void Enter(Manager manager) {
 
-        if (weatherManager.data!= null)
+        if (manager.data!= null)
         {
-            weatherManager.data.sunnyVolume.SetActive(true);
-            weatherManager.data.sun.transform.rotation = Quaternion.Euler(stateRotation);
-            weatherManager.data.rainyParticle.gameObject.SetActive(false);
-            weatherManager.data.snowyParticle.gameObject.SetActive(false);
-            weatherManager.data.sun.colorTemperature = 3828;
-            SetLightIntensityInLux(130000, weatherManager);
+            manager.data.sunnyVolume.SetActive(true);
+            manager.data.sun.transform.rotation = Quaternion.Euler(stateRotation);
+            manager.data.rainyParticle.gameObject.SetActive(false);
+            manager.data.snowyParticle.gameObject.SetActive(false);
+            manager.data.sun.colorTemperature = 3828;
+            SetLightIntensityInLux(130000, manager);
         }
     }
-    public void Exit(WeatherStateManager weatherManager) {
-        weatherManager.data.sun.transform.rotation = Quaternion.Euler(defaultRotation);
-        weatherManager.data.sun.colorTemperature = 5000;
-        weatherManager.data.sun.luxAtDistance = 130000;
-        weatherManager.data.sunnyVolume.SetActive(false);
+    public void Exit(Manager manager) {
+        manager.data.sun.transform.rotation = Quaternion.Euler(defaultRotation);
+        manager.data.sun.colorTemperature = 5000;
+        manager.data.sun.luxAtDistance = 130000;
+        manager.data.sunnyVolume.SetActive(false);
     }
-    void SetLightIntensityInLux(float luxValue, WeatherStateManager weatherManager) {
-        if (weatherManager.data.sun.TryGetComponent<HDAdditionalLightData>(out var hdLightData))
+    void SetLightIntensityInLux(float luxValue, Manager manager) {
+        if (manager.data.sun.TryGetComponent<HDAdditionalLightData>(out var hdLightData))
         {
             LightUnit lux = UnityEngine.Rendering.LightUnit.Lux;
             hdLightData.SetIntensity(luxValue, lux);

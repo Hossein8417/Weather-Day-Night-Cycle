@@ -5,8 +5,7 @@ public class UI_Manager : MonoBehaviour
 {
     public UIData uiData;
 
-    public WeatherStateManager weatherManager;
-    public TimeStateManager timeManager;
+    public Manager manager;
 
 
     List<TMP_Dropdown.OptionData> weatherOptions = new List<TMP_Dropdown.OptionData> {
@@ -30,13 +29,12 @@ public class UI_Manager : MonoBehaviour
         uiData.weatherDropdown.ClearOptions();
         uiData.weatherDropdown.AddOptions(weatherOptions);
         uiData.weatherDropdown.onValueChanged.AddListener(OnWeatherChanged);
-        weatherManager.GetComponent<WeatherStateManager>();
 
         uiData.timeDropdown.ClearOptions();
         uiData.timeDropdown.AddOptions(timeOption);
         uiData.timeDropdown.onValueChanged.AddListener(OnTimeChanged);
-        timeManager.GetComponent<TimeStateManager>();
 
+        manager.GetComponent<Manager>();
 
     }
     public void OnWeatherChanged(int index) {
@@ -45,23 +43,23 @@ public class UI_Manager : MonoBehaviour
         switch (index)
         {
             case 0:
-                weatherManager.ChangeState(weatherManager.defaultState);
+                manager.ChangeWeatherState(manager.defaultState);
                 break;
 
             case 1:
-                weatherManager.ChangeState(weatherManager.sunnyState);
+                manager.ChangeWeatherState(manager.sunnyState);
                 break;
                 
             case 2:
-                weatherManager.ChangeState(weatherManager.cloudyState);
+                manager.ChangeWeatherState(manager.cloudyState);
                 break;
                 
             case 3:
-                weatherManager.ChangeState(weatherManager.rainyState);
+                manager.ChangeWeatherState(manager.rainyState);
                 break;
 
             case 4:
-                weatherManager.ChangeState(weatherManager.snowyState);
+                manager.ChangeWeatherState(manager.snowyState);
                 break;
         }
     }
@@ -73,25 +71,24 @@ public class UI_Manager : MonoBehaviour
         switch (index)
         {
             case 0:
-                timeManager.ChangeState(timeManager.defaultTimeState);
+                manager.ChangeTimeState(manager.defaultTimeState);
                 break;
 
             case 1:
-                timeManager.ChangeState(timeManager.morningState);
+                manager.ChangeTimeState(manager.morningState);
                 break;
 
             case 2:
-                timeManager.ChangeState(timeManager.middayState);
+                manager.ChangeTimeState(manager.middayState);
                 break;
 
             case 3:
-                timeManager.ChangeState(timeManager.eveningState);
+                manager.ChangeWeatherState(manager.eveningState);
                 break;
 
             case 4:
-                timeManager.ChangeState(timeManager.nightState);
+                manager.ChangeWeatherState(manager.nightState);
                 break;
         }
     }
-
 }

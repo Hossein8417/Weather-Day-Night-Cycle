@@ -1,6 +1,6 @@
 using UnityEngine;
-public class DefaultState : IWeatherState
+public class DefaultState : IState
 {
-    public void Enter(WeatherStateManager weatherManager) { }    
-    public void Exit(WeatherStateManager weatherManager) { }
+    public void Enter(Manager manager) { }    
+    public void Exit(Manager manager) { }
 }
