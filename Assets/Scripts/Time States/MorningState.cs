@@ -9,43 +9,15 @@ public class MorningState : IState
     public void Enter(Manager manager) {
         if (manager.data != null)
         {
-            SetSunOn(manager);
-            SetVolumeOn(manager);
+            manager.lightController.ApplySunSettings(100000, 5500, manager , stateRotation);
+            manager.volumeController.ApplyVolumeSettings(manager, true, manager.data.morningVolume);
         }
         else Debug.LogWarning("Missing *manager*"); 
     }
 
     public void Exit(Manager manager) {
 
-        SetSunOff(manager);
-        SetVolumeOff(manager); 
-    }
-
-    public void SetSunIntensityInLux(float luxValue, Manager manager)
-    {
-        if (manager.data.sun.TryGetComponent<HDAdditionalLightData>(out var hdLightData))
-        {
-            LightUnit lux = UnityEngine.Rendering.LightUnit.Lux;
-            hdLightData.SetIntensity(luxValue, lux);
-        }
-
-    }
-    public void SetSunOn(Manager manager) {
-        manager.data.sun.transform.rotation = Quaternion.Euler(stateRotation);
-        manager.data.sun.colorTemperature = 5500;
-        SetSunIntensityInLux(100000, manager);
-    }
-
-    public void SetSunOff(Manager manager) { 
-        manager.data.sun.transform.rotation = Quaternion.Euler(defaultRotation);
-        manager.data.sun.colorTemperature = 5000;
-        SetSunIntensityInLux(130000, manager);
-    }
-    public void SetVolumeOn(Manager manager) {
-        manager.data.morningVolume.SetActive(true);
-    }
-
-    public void SetVolumeOff(Manager manager) {
-        manager.data.morningVolume.SetActive(false);
+        manager.lightController.ApplySunSettings(130000, 5500, manager, defaultRotation);
+        manager.volumeController.ApplyVolumeSettings(manager, false, manager.data.morningVolume);
     }
 }

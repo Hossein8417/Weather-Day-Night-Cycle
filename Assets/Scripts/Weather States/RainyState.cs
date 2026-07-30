@@ -1,60 +1,21 @@
 using UnityEngine;
-using UnityEngine.Rendering;
-using UnityEngine.Rendering.HighDefinition;
 public class RainyState : IState
 {
     Vector3 stateRotation = new Vector3(150f, 0f, 0f);
     Vector3 defaultRotation = new Vector3(0f, 0f, 0f);
     public void Enter(Manager manager) {
         if (manager.data != null) {
-            SetSunOn(manager);
-            SetVolumeOn(manager);
-            SetParticleOn(manager);
+            manager.lightController.ApplySunSettings(10000, 11242, manager, stateRotation);
+            manager.volumeController.ApplyVolumeSettings(manager, true, manager.data.rainyVolume);
+            manager.particleController.ApplyParticleSettings(manager, manager.data.rainyParticle, true);
         }
         else Debug.LogWarning("Missing *manager*");
-
     }
 
-    public void Exit(Manager manager) {
-        SetSunOff(manager);
-        SetVolumeOff(manager);
-
-        SetParticleOff(manager);
-    }
-    void SetSunIntensityInLux(float luxValue, Manager manager)
+    public void Exit(Manager manager)
     {
-        if (manager.data.sun.TryGetComponent<HDAdditionalLightData>(out var hdLightData))
-        {
-            LightUnit lux = UnityEngine.Rendering.LightUnit.Lux;
-            hdLightData.SetIntensity(luxValue, lux);
-        }
-
-    }
-    public void SetSunOn(Manager manager) {
-        manager.data.sun.transform.rotation = Quaternion.Euler(stateRotation);
-        manager.data.sun.colorTemperature = 11242;
-        SetSunIntensityInLux(10000, manager);
-    }
-    public void SetSunOff(Manager manager) {
-        manager.data.sun.transform.rotation = Quaternion.Euler(defaultRotation);
-        manager.data.sun.colorTemperature = 5000;
-        SetSunIntensityInLux(130000, manager);
-    }
-    public void SetVolumeOn(Manager manager)
-    {
-        manager.data.rainyVolume.SetActive(true);
-    }
-    public void SetVolumeOff(Manager manager)
-    {
-        manager.data.rainyVolume.SetActive(false);
-    }
-    public void SetParticleOn(Manager manager ) {
-        manager.data.rainyParticle.gameObject.SetActive(true);
-        manager.data.rainyParticle.Play();
-    }
-    public void SetParticleOff(Manager manager)
-    {
-        manager.data.rainyParticle.Stop();
-        manager.data.rainyParticle.gameObject.SetActive(false);
+        manager.lightController.ApplySunSettings(130000, 5000, manager, defaultRotation);
+        manager.volumeController.ApplyVolumeSettings(manager, false, manager.data.rainyVolume); ;
+        manager.particleController.ApplyParticleSettings(manager, manager.data.rainyParticle, false);
     }
 }

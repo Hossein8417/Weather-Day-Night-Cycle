@@ -83,11 +83,11 @@ public class UI_Manager : MonoBehaviour
                 break;
 
             case 3:
-                manager.ChangeWeatherState(manager.eveningState);
+                manager.ChangeTimeState(manager.eveningState);
                 break;
 
             case 4:
-                manager.ChangeWeatherState(manager.nightState);
+                manager.ChangeTimeState(manager.nightState);
                 break;
         }
     }

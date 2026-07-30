@@ -20,6 +20,11 @@ public class Manager : MonoBehaviour
 
     public Data data;
 
+    public LightController lightController;
+    public MaterialController materialController;
+    public VolumeController volumeController;
+    public ParticleController particleController;   
+
     private void Start()
     {
         currentTime = defaultTimeState;
