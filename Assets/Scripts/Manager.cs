@@ -26,7 +26,7 @@ public class Manager : MonoBehaviour
 
     [SerializeField]
     private StatesRegistry statesRegistry;
-    private void Awake()
+    private void Start()
     {
         defaultTimeState = new DefaultTimeState();
         morningState = new MorningState(statesRegistry.assets[Types.Morning]);
@@ -38,9 +38,9 @@ public class Manager : MonoBehaviour
         rainyState = new RainyState(statesRegistry.assets[Types.Rainy]);
         cloudyState = new CloudyState(statesRegistry.assets[Types.Cloudy]);
         snowyState = new SnowyState(statesRegistry.assets[Types.Snowy]);
-    }
-    private void Start()
-    {
+
+        //---------------------------
+
         currentTime = defaultTimeState;
         currentTime.Enter(this);
 

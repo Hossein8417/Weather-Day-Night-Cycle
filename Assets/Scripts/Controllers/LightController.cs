@@ -4,23 +4,23 @@ using UnityEngine.Rendering.HighDefinition;
 
 public class LightController : MonoBehaviour
 {
-    public void ApplySunSettings(Manager manager, StatesSO settings) {
-        manager.data.sun.transform.rotation = Quaternion.Euler(settings.stateRotation);
-        manager.data.sun.colorTemperature = settings.sunColorTemperature;
-        if (manager.data.sun.TryGetComponent<HDAdditionalLightData>(out var hdLightData))
+    public void ApplySunSettings(Light sun, StatesSO settings) {
+        sun.transform.rotation = Quaternion.Euler(settings.stateRotation);
+        sun.colorTemperature = settings.sunColorTemperature;
+        if (sun.TryGetComponent<HDAdditionalLightData>(out var hdLightData))
         {
             LightUnit lux = LightUnit.Lux;
             hdLightData.SetIntensity(settings.sunLuxAmount, lux);
         }
     }
-    public void ApplyLightSettings(Manager manager, StatesSO settings, bool isEnable)
+    public void ApplyLightSettings(Light light, StatesSO settings, bool isEnable)
     {
-        if (manager.data.light.TryGetComponent<HDAdditionalLightData>(out var hdLightData))
+        if (light.TryGetComponent<HDAdditionalLightData>(out var hdLightData))
         {
             LightUnit lux = LightUnit.Lux;
             hdLightData.SetIntensity(settings.lightLuxAmount, lux);
         }
-        manager.data.light.gameObject.SetActive(isEnable);
-        manager.data.light.colorTemperature = settings.lightColorTemperature;
+        light.gameObject.SetActive(isEnable);
+        light.colorTemperature = settings.lightColorTemperature;
     }
 }

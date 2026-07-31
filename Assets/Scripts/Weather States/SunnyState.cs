@@ -11,13 +11,13 @@ public class SunnyState : IState
 
         if (manager.data != null)
         {
-            manager.lightController.ApplySunSettings(manager, settings);
+            manager.lightController.ApplySunSettings(manager.data.sun, settings);
             manager.volumeController.ApplyVolumeSettings(true, manager.data.sunnyVolume);
         }
         else Debug.LogWarning("Missing *manager*");
     }
     public void Exit(Manager manager) {
-        manager.lightController.ApplySunSettings(manager, settings);
+        manager.lightController.ApplySunSettings(manager.data.sun, settings);
         manager.volumeController.ApplyVolumeSettings(false, manager.data.sunnyVolume);
     }
 }
