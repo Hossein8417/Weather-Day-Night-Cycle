@@ -7248,6 +7248,7 @@ GameObject:
   - component: {fileID: 941025093}
   - component: {fileID: 941025096}
   - component: {fileID: 941025095}
+  - component: {fileID: 941025097}
   m_Layer: 0
   m_Name: Manager
   m_TagString: Untagged
@@ -7342,6 +7343,7 @@ MonoBehaviour:
   materialController: {fileID: 941025093}
   volumeController: {fileID: 941025095}
   particleController: {fileID: 941025096}
+  statesRegistry: {fileID: 941025097}
 --- !u!114 &941025093
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -7390,6 +7392,26 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b6eed2e2a7b08f2429dcdaa26b685a8a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ParticleController
+--- !u!114 &941025097
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 941025082}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9a02335d2f75b184cafcba970b89a3b5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::StatesRegistry
+  sunnyAsset: {fileID: 11400000, guid: 172a607294a9ca44c9deeb87855a0450, type: 2}
+  cloudyAsset: {fileID: 11400000, guid: 0881131d66beb6b4d842156d7705b132, type: 2}
+  rainyAsset: {fileID: 11400000, guid: 48710d2660cda7443940abcb60bcb67c, type: 2}
+  snowyAsset: {fileID: 11400000, guid: 35808aef02a57ca4eaaf4a7101569a67, type: 2}
+  morningAsset: {fileID: 11400000, guid: 69034b695098b404c9cc559b16c71a74, type: 2}
+  middayAsset: {fileID: 11400000, guid: cd4241e984d49d940b8e15a9d6bc9572, type: 2}
+  eveningAsset: {fileID: 11400000, guid: 7d5295f52cd45f24384640d528df9683, type: 2}
+  nightAsset: {fileID: 11400000, guid: a7d00e70426cc0242b18221554902338, type: 2}
 --- !u!1001 &995361627
 PrefabInstance:
   m_ObjectHideFlags: 0

@@ -1,6 +1,4 @@
-using UnityEditor.SpeedTree.Importer;
 using UnityEngine;
-
 public class Data : MonoBehaviour
 {
     [Header("Light & Sun")]

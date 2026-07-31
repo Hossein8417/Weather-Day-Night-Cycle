@@ -1,19 +1,22 @@
 using UnityEngine;
 public class CloudyState : IState
 {
-    Vector3 stateRotation = new Vector3(40f, 0f, 0f);
-    Vector3 defaultRotation = new Vector3(0f, 0f, 0f);
+    private readonly StatesSO settings;
+    public CloudyState(StatesSO settings)
+    {
+        this.settings = settings;
+    }
     public void Enter(Manager manager) {
         if (manager.data != null)
         {
-            manager.lightController.ApplySunSettings(80000, 7081, manager, stateRotation);
-            manager.volumeController.ApplyVolumeSettings(manager, true, manager.data.cloudyVolume);
+            manager.lightController.ApplySunSettings(manager, settings);
+            manager.volumeController.ApplyVolumeSettings(true, manager.data.cloudyVolume);
         }
         else Debug.LogWarning("Missing *manager*");
     }
 
     public void Exit(Manager manager) {
-        manager.lightController.ApplySunSettings(130000, 5000, manager, defaultRotation);
-        manager.volumeController.ApplyVolumeSettings(manager, false, manager.data.cloudyVolume);
+        manager.lightController.ApplySunSettings(manager, settings);
+        manager.volumeController.ApplyVolumeSettings(false, manager.data.cloudyVolume);
     }
 }
