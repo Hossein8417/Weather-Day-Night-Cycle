@@ -1,30 +1,32 @@
-# Weather-Day-Night-Cycle State Machine
+# Weather & Day/Night State Machine
 
-A Unity project that demonstrates a modular **State Machine architecture** for controlling environmental conditions such as **Weather** and **Time of Day**.
+A Unity HDRP project that demonstrates a modular and scalable **State Machine architecture** for controlling **Weather** and **Time of Day** independently.
 
-The project was built as a software architecture and game programming exercise to practice state-driven design, separation of concerns, and scalable system organization inside Unity.
-
----
-
-## Overview
-
-This system allows runtime switching between different weather conditions and time-of-day states through a simple UI.
-
-Each state is responsible for managing its own visual behavior, including:
-
-* Lighting
-* HDRP Volumes
-* Particle Systems
-* Material Changes
-* Environmental Settings
-
-The project uses a custom State Machine implementation rather than hardcoded conditional logic, making it easier to extend and maintain.
+The project was developed as both a game programming exercise and a software architecture practice, focusing on clean code, object-oriented design, and building maintainable gameplay systems.
 
 ---
 
-## Features
+# Overview
 
-### Weather States
+The environment is divided into two independent state machines:
+
+* **Weather States**
+* **Time States**
+
+Both systems can be changed independently at runtime through a simple UI, allowing different combinations such as:
+
+* Morning + Sunny
+* Morning + Rainy
+* Evening + Cloudy
+* Night + Snowy
+
+Each state controls only the systems it owns, making the project easier to extend and reducing coupling between gameplay systems.
+
+---
+
+# Features
+
+## Weather States
 
 * Default
 * Sunny
@@ -32,7 +34,7 @@ The project uses a custom State Machine implementation rather than hardcoded con
 * Rainy
 * Snowy
 
-### Time States
+## Time States
 
 * Default
 * Morning
@@ -40,127 +42,202 @@ The project uses a custom State Machine implementation rather than hardcoded con
 * Evening
 * Night
 
-### Environment Control
+## Environment Control
 
-* Dynamic sun rotation
-* Light temperature adjustments
+* Dynamic day/night switching
+* Dynamic weather switching
 * HDRP light intensity control
+* Color temperature adjustment
 * Volume activation/deactivation
 * Rain particle effects
 * Snow particle effects
 * Ground material switching
 
-### UI Controls
+## Runtime Controls
 
-* Dropdown-based weather selection
-* Dropdown-based time selection
-* Runtime state switching
+* Weather dropdown
+* Time dropdown
+* Instant state switching
+* Independent Weather and Time state machines
+
+---
+## Screenshots
+
+### Default State
+
+
+![Default Scene](Images/DefaultScene.png)
 
 ---
 
-## Architecture
+### Weather States
 
-The project follows a State Machine architecture.
+| Sunny                 | Cloudy                 |
+| --------------------- | ---------------------- |
+| ![](Images/Sunny.png) | ![](Images/Cloudy.png) |
 
-### Core Components
+| Rainy                 | Snowy                 |
+| --------------------- | --------------------- |
+| ![](Images/Rainy.png) | ![](Images/Snowy.png) |
 
-#### IState
+---
 
-Common contract implemented by every state.
+### Time States
+
+| Morning                 | Midday                 |
+| ----------------------- | ---------------------- |
+| ![](Images/Morning.png) | ![](Images/Midday.png) |
+
+| Evening                 | Night                 |
+| ----------------------- | --------------------- |
+| ![](Images/Evening.png) | ![](Images/Night.png) |
+
+---
+
+## Demo Video
+
+A short demonstration of the project is available below.
+
+www.linkedin.com/in/hossein-nardini-2567033a1
+---
+
+# Architecture
+
+The project was heavily refactored during development to improve separation of concerns and reduce class responsibilities.
+
+## Core Components
+
+### IState
+
+Common interface implemented by every state.
 
 Responsibilities:
 
-* Enter State
-* Exit State
+* Enter()
+* Exit()
 
-#### Manager
+---
 
-Controls active weather and time states.
+### Manager
+
+Coordinates both state machines.
 
 Responsibilities:
 
-* Store current state references
+* Initialize systems
+* Store current states
 * Handle state transitions
-* Initialize default states
-
-#### Data
-
-Centralized container for scene references.
-
-Responsibilities:
-
-* Lights
-* Volumes
-* Materials
-* Particle Systems
-* Environment Objects
-
-#### UI Manager
-
-Acts as a bridge between user input and the state system.
-
-Responsibilities:
-
-* UI initialization
-* Dropdown events
-* State transition requests
 
 ---
 
-## Technical Concepts Practiced
+### State Registry
+
+Stores and provides all State configuration assets.
+
+Responsibilities:
+
+* Register State ScriptableObjects
+* Provide configuration data to states
+
+---
+
+### ScriptableObject State Settings
+
+Every state uses its own ScriptableObject configuration instead of hardcoded values.
+
+Examples:
+
+* Sun rotation
+* Light intensity
+* Color temperature
+* Other environment settings
+
+This makes every state data-driven and easy to tweak directly inside the Unity Inspector.
+
+---
+
+### Controllers
+
+Environment logic is separated into dedicated controllers.
+
+Examples include:
+
+* Light Controller
+* Volume Controller
+* Particle Controller
+* Material Controller
+
+Each controller is responsible for only one part of the environment, reducing duplicated code and improving maintainability.
+
+---
+
+### UI Manager
+
+Acts as a bridge between the user interface and the state system.
+
+Responsibilities:
+
+* Initialize dropdowns
+* Handle UI events
+* Request state changes
+
+---
+
+# Design Goals
+
+The project focuses on applying clean architecture principles rather than building a complete gameplay system.
+
+Concepts practiced include:
 
 * State Machine Pattern
-* Object-Oriented Programming (OOP)
 * Separation of Concerns
-* Single Responsibility Principle mindset
-* Unity HDRP
-* Runtime Environment Control
-* UI Event Handling
-* Project Refactoring
+* Single Responsibility Principle (SRP)
+* Data-Driven Design
+* ScriptableObjects
+* Runtime System Management
+* Refactoring
+* Dependency Reduction
+* Modular Architecture
 
 ---
 
-## What I Learned
+# What I Learned
 
 During this project I practiced:
 
-* Designing and implementing a State Machine
-* Separating UI from gameplay logic
-* Structuring larger Unity projects
-* Refactoring code into smaller responsibilities
-* Managing environmental systems through states
-* Improving code maintainability and scalability
-* Identifying coupling and architectural issues
+* Designing a modular State Machine architecture
+* Building reusable gameplay systems
+* Separating gameplay logic from presentation
+* Refactoring large classes into focused components
+* Using ScriptableObjects to create data-driven systems
+* Reducing coupling between systems
+* Identifying and removing code smells
+* Structuring Unity projects for scalability
 
 ---
 
-## Future Improvements
+# Future Improvements
 
 Planned improvements include:
 
-* Transition effects between states
-* Smooth weather blending
-* Smooth day/night transitions
-* State configuration using ScriptableObjects
-* Reduced coupling between systems
-* Shared base classes for common state behavior
-* Further architecture refinement
+* Smooth transitions between weather states
 
 ---
 
-## Technologies
+# Technologies
 
 * Unity
 * C#
-* HDRP
+* High Definition Render Pipeline (HDRP)
+* ScriptableObjects
 * TextMeshPro
-* Object-Oriented Programming
+* Object-Oriented Programming (OOP)
 * State Machine Pattern
 
 ---
 
-## Author
+# Author
 
 Hossein
 
-Built as part of my game programming and software architecture learning journey.
+This project was built as part of my game programming journey to strengthen software architecture, object-oriented design, and gameplay programming skills before moving on to larger Unity projects.
