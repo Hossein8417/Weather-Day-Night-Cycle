@@ -66,7 +66,7 @@ Each state controls only the systems it owns, making the project easier to exten
 ### Default State
 
 
-![Default Scene](Images/DefaultScene.png)
+![Default Scene](Assets/Media/Images/DefaultScene.png)
 
 ---
 
@@ -74,11 +74,11 @@ Each state controls only the systems it owns, making the project easier to exten
 
 | Sunny                 | Cloudy                 |
 | --------------------- | ---------------------- |
-| ![](Images/Sunny.png) | ![](Images/Cloudy.png) |
+| ![Sunny](Assets/Media/Images/Sunny.png) | ![Cloudy](Assets/Media/Images/Cloudy.png) |
 
 | Rainy                 | Snowy                 |
 | --------------------- | --------------------- |
-| ![](Images/Rainy.png) | ![](Images/Snowy.png) |
+| ![Rainy](Assets/Media/Images/Rainy.png) | ![Snowy](Assets/Media/Images/Snowy.png) |
 
 ---
 
@@ -86,11 +86,11 @@ Each state controls only the systems it owns, making the project easier to exten
 
 | Morning                 | Midday                 |
 | ----------------------- | ---------------------- |
-| ![](Images/Morning.png) | ![](Images/Midday.png) |
+| ![Morning](Assets/Media/Images/Morning.png) | ![Midday](Assets/Media/Images/Midday.png) |
 
 | Evening                 | Night                 |
 | ----------------------- | --------------------- |
-| ![](Images/Evening.png) | ![](Images/Night.png) |
+| ![Evening](Assets/Media/Images/Evening.png) | ![Night](Assets/Media/Images/Night.png) |
 
 ---
 
@@ -98,7 +98,7 @@ Each state controls only the systems it owns, making the project easier to exten
 
 A short demonstration of the project is available below.
 
-www.linkedin.com/in/hossein-nardini-2567033a1
+[www.linkedin.com/in/hossein-nardini-2567033a1](https://www.linkedin.com/posts/hossein-nardini-2567033a1_unity-gamedevelopment-gamedev-ugcPost-7489273183095726081-Mw2y/?utm_source=share&utm_medium=member_desktop&rcm=ACoAAGKGuaIBH30_WbWuXyUcvPW-3sPdKbcFlR4)
 ---
 
 # Architecture
