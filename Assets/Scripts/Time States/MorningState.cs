@@ -1,45 +1,21 @@
 using UnityEngine;
-using UnityEngine.Rendering;
-using UnityEngine.Rendering.HighDefinition;
-
-public class MorningState : ITimeState
+public class MorningState : IState
 {
-    Vector3 stateRotation = new Vector3(30f, 120f, 0f);
-    Vector3 defaultRotation = new Vector3(0f, 0f, 0f);
-
-
-    public void Enter(TimeStateManager timeManager) {
-
-        timeManager.data.morningVolume.SetActive(true);
-        timeManager.data.sun.transform.rotation =  Quaternion.Euler(stateRotation);
-        timeManager.data.sun.colorTemperature = 5500;
-        SetLightIntensityInLux(50000, timeManager);
-
-
-
-    }
-    public void UpdateState(TimeStateManager timeManager) { 
-
-
-    }
-    public void SwitchWeather(TimeStateManager timeManager) { 
-    
-    }
-
-    public void Exit(TimeStateManager timeManager) {
-        timeManager.data.sun.transform.rotation = Quaternion.Euler(defaultRotation);
-        timeManager.data.sun.colorTemperature = 5000;
-        SetLightIntensityInLux(130000, timeManager);
-        timeManager.data.morningVolume.SetActive(false);
-    }
-
-    void SetLightIntensityInLux(float luxValue, TimeStateManager timeManager)
+    private readonly StatesSO settings;
+    public MorningState(StatesSO settings)
     {
-        if (timeManager.data.sun.TryGetComponent<HDAdditionalLightData>(out var hdLightData))
+        this.settings = settings;
+    }
+    public void Enter(Manager manager) {
+        if (manager.data != null)
         {
-            LightUnit lux = UnityEngine.Rendering.LightUnit.Lux;
-            hdLightData.SetIntensity(luxValue, lux);
+            manager.lightController.ApplySunSettings(manager.data.sun, settings);
         }
+        else Debug.LogWarning("Missing *manager*"); 
+    }
 
+    public void Exit(Manager manager) {
+
+        manager.lightController.ApplySunSettings(manager.data.sun, settings);
     }
 }

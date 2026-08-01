@@ -1,6 +1,4 @@
-using UnityEditor.SpeedTree.Importer;
 using UnityEngine;
-
 public class Data : MonoBehaviour
 {
     [Header("Light & Sun")]
@@ -12,10 +10,6 @@ public class Data : MonoBehaviour
     public GameObject cloudyVolume;
     public GameObject rainyVolume;
     public GameObject snowyVolume;
-    public GameObject morningVolume;
-    public GameObject middayVolume;
-    public GameObject eveningVolume;
-    public GameObject nightVolume;
 
     [Header("ParticleSystems")]
     public ParticleSystem rainyParticle;
