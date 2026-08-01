@@ -29,15 +29,15 @@ public class Manager : MonoBehaviour
     private void Start()
     {
         defaultTimeState = new DefaultTimeState();
-        morningState = new MorningState(statesRegistry.assets[Types.Morning]);
-        middayState = new MiddayState(statesRegistry.assets[Types.Midday]);
-        eveningState = new EveningState(statesRegistry.assets[Types.Evening]);
-        nightState = new NightState(statesRegistry.assets[Types.Night]);
+        morningState = new MorningState(statesRegistry.Get(TimeTypes.Morning));
+        middayState = new MiddayState(statesRegistry.Get(TimeTypes.Midday));
+        eveningState = new EveningState(statesRegistry.Get(TimeTypes.Evening));
+        nightState = new NightState(statesRegistry.Get(TimeTypes.Night));
         defaultState = new DefaultState();
-        sunnyState = new SunnyState(statesRegistry.assets[Types.Sunny]);
-        rainyState = new RainyState(statesRegistry.assets[Types.Rainy]);
-        cloudyState = new CloudyState(statesRegistry.assets[Types.Cloudy]);
-        snowyState = new SnowyState(statesRegistry.assets[Types.Snowy]);
+        sunnyState = new SunnyState();
+        rainyState = new RainyState();
+        cloudyState = new CloudyState();
+        snowyState = new SnowyState();
 
         //---------------------------
 

@@ -1,10 +1,6 @@
 using System.Collections.Generic;
 using UnityEngine;
-public enum Types { 
-    Sunny,
-    Cloudy,
-    Rainy,
-    Snowy,
+public enum TimeTypes { 
     Morning,
     Midday,
     Evening,
@@ -12,14 +8,7 @@ public enum Types {
 }
 public class StatesRegistry : MonoBehaviour
 {
-    [SerializeField]
-    private StatesSO sunnyAsset;
-    [SerializeField]
-    private StatesSO cloudyAsset;
-    [SerializeField]
-    private StatesSO rainyAsset;
-    [SerializeField]
-    private StatesSO snowyAsset;
+
     [SerializeField]
     private StatesSO morningAsset;
     [SerializeField]
@@ -30,17 +19,17 @@ public class StatesRegistry : MonoBehaviour
     private StatesSO nightAsset;
 
    
-    public Dictionary<Types, StatesSO> assets = new Dictionary<Types, StatesSO>();
+    private Dictionary<TimeTypes, StatesSO> assets = new Dictionary<TimeTypes, StatesSO>();
 
     private void Awake()
     {
-        assets.Add(Types.Sunny, sunnyAsset);
-        assets.Add(Types.Cloudy, cloudyAsset);
-        assets.Add(Types.Rainy, rainyAsset);
-        assets.Add(Types.Snowy, snowyAsset);
-        assets.Add(Types.Morning, morningAsset);
-        assets.Add (Types.Midday, middayAsset);
-        assets.Add (Types.Evening, eveningAsset);
-        assets.Add (Types.Night, nightAsset);
+        assets.Add(TimeTypes.Morning, morningAsset);
+        assets.Add (TimeTypes.Midday, middayAsset);
+        assets.Add (TimeTypes.Evening, eveningAsset);
+        assets.Add (TimeTypes.Night, nightAsset);
+    }
+
+    public StatesSO Get(TimeTypes type) { 
+        return assets[type];
     }
 }

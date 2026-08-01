@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::StatesSO
   stateRotation: {x: 1.7, y: 0, z: 0}
   defaultRotation: {x: 0, y: 0, z: 0}
-  sunLuxAmount: 1511
-  sunColorTemperature: 4500
-  lightLuxAmount: 800
-  lightColorTemperature: 7641
+  sunLuxAmount: 9500
+  sunColorTemperature: 2500
+  lightLuxAmount: 3183
+  lightColorTemperature: 8000

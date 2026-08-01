@@ -12,9 +12,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a155a447284b65d41940d2adfaa94f3a, type: 3}
   m_Name: MiddayState
   m_EditorClassIdentifier: Assembly-CSharp::StatesSO
-  stateRotation: {x: 90, y: 200, z: 0}
+  stateRotation: {x: 90, y: 0, z: 0}
   defaultRotation: {x: 0, y: 0, z: 0}
-  sunLuxAmount: 80000
-  sunColorTemperature: 4500
+  sunLuxAmount: 15000
+  sunColorTemperature: 3800
   lightLuxAmount: 0
   lightColorTemperature: 0

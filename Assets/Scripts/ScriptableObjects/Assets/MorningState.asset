@@ -12,9 +12,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a155a447284b65d41940d2adfaa94f3a, type: 3}
   m_Name: MorningState
   m_EditorClassIdentifier: Assembly-CSharp::StatesSO
-  stateRotation: {x: 30, y: 0, z: 0}
-  defaultRotation: {x: 0, y: 0, z: 0}
-  sunLuxAmount: 100000
-  sunColorTemperature: 5500
+  stateRotation: {x: 30, y: 214, z: 0}
+  defaultRotation: {x: 30, y: 0, z: 0}
+  sunLuxAmount: 15535
+  sunColorTemperature: 3932
   lightLuxAmount: 0
   lightColorTemperature: 0

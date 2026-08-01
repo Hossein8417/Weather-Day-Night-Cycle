@@ -10,7 +10,6 @@ public class MorningState : IState
         if (manager.data != null)
         {
             manager.lightController.ApplySunSettings(manager.data.sun, settings);
-            manager.volumeController.ApplyVolumeSettings(true, manager.data.morningVolume);
         }
         else Debug.LogWarning("Missing *manager*"); 
     }
@@ -18,6 +17,5 @@ public class MorningState : IState
     public void Exit(Manager manager) {
 
         manager.lightController.ApplySunSettings(manager.data.sun, settings);
-        manager.volumeController.ApplyVolumeSettings(false, manager.data.morningVolume);
     }
 }
