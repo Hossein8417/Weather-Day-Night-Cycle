@@ -1,9 +1,21 @@
 using UnityEngine;
 public class Manager : MonoBehaviour
 {
+    [SerializeField]
+    private StatesRegistry statesRegistry;
+
+    [SerializeField]
+    private Transition transition;
+
+    public Data data;
+
     public IState currentTime;
+    public IState newState;
 
     public IState currentWeather;
+
+    private StatesSO currentTimeSettings;
+    private StatesSO targetStateSettings;
 
     public DefaultTimeState defaultTimeState;
     public MorningState morningState;
@@ -17,17 +29,14 @@ public class Manager : MonoBehaviour
     public CloudyState cloudyState;
     public SnowyState snowyState;
 
-    public Data data;
-
     public LightController lightController;
     public MaterialController materialController;
     public VolumeController volumeController;
     public ParticleController particleController;
 
-    [SerializeField]
-    private StatesRegistry statesRegistry;
     private void Start()
     {
+
         defaultTimeState = new DefaultTimeState();
         morningState = new MorningState(statesRegistry.Get(TimeTypes.Morning));
         middayState = new MiddayState(statesRegistry.Get(TimeTypes.Midday));
@@ -41,13 +50,20 @@ public class Manager : MonoBehaviour
 
         //---------------------------
 
+        currentTimeSettings = statesRegistry.Get(TimeTypes.Default);
+
+        //---------------------------
+
         currentTime = defaultTimeState;
         currentTime.Enter(this);
 
-        currentWeather = defaultState;
+        currentWeather = defaultState;                
         currentWeather.Enter(this);
+
+        transition.OnTransitionFinished += FinishStateChange;
     }
-    public void ChangeWeatherState(IState newState) {
+    public void ChangeWeatherState(IState newState)
+    {
         if (newState == currentWeather) return;
 
         currentWeather.Exit(this);
@@ -57,14 +73,26 @@ public class Manager : MonoBehaviour
         newState.Enter(this);
     }
 
-    public void ChangeTimeState(IState newState) {
+    public void ChangeTimeState(IState newState, StatesSO targetStateSettings)
+    {
+        if (this.newState == currentTime) return;
+        if (this.targetStateSettings == currentTimeSettings) return;
 
-        if (newState == currentTime) return;
+        this.newState = newState;
+        this.targetStateSettings = targetStateSettings;
+
+        Debug.Log($"Current: {currentTimeSettings.name}");
+        Debug.Log($"Target : {this.targetStateSettings.name}");
+
+        transition.StartTransition(currentTimeSettings, this.targetStateSettings);
+    }
+
+    public void FinishStateChange() { 
 
         currentTime.Exit(this);
-
         currentTime = newState;
-
-        newState.Enter(this);
+        currentTimeSettings = targetStateSettings;
+        currentTime.Enter(this);
+        Debug.Log(currentTimeSettings.name);
     }
 }

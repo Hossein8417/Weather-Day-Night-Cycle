@@ -8,15 +8,9 @@ public class MiddayState : IState
     }
     public void Enter(Manager manager)
     {
-        if (manager.data != null)
-        {
-            manager.lightController.ApplySunSettings(manager.data.sun, settings);
-        }
-        else Debug.LogWarning("Missing *manager*");
     }
 
     public void Exit(Manager manager)
     {
-        manager.lightController.ApplySunSettings(manager.data.sun, settings);
     }
 }

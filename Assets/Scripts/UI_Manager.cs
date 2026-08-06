@@ -3,10 +3,14 @@ using TMPro;
 using UnityEngine;
 public class UI_Manager : MonoBehaviour
 {
-    public UIData uiData;
+    [SerializeField]
+    private UIData uiData;
 
-    public Manager manager;
+    [SerializeField]
+    private Manager manager;
 
+    [SerializeField]
+    private StatesRegistry registry;
 
     List<TMP_Dropdown.OptionData> weatherOptions = new List<TMP_Dropdown.OptionData> {
         new TMP_Dropdown.OptionData("Default"),
@@ -34,11 +38,8 @@ public class UI_Manager : MonoBehaviour
         uiData.timeDropdown.AddOptions(timeOption);
         uiData.timeDropdown.onValueChanged.AddListener(OnTimeChanged);
 
-        manager.GetComponent<Manager>();
-
     }
     public void OnWeatherChanged(int index) {
-
 
         switch (index)
         {
@@ -66,28 +67,27 @@ public class UI_Manager : MonoBehaviour
 
     public void OnTimeChanged(int index)
     {
-
-
+        Debug.Log("UI");
         switch (index)
         {
             case 0:
-                manager.ChangeTimeState(manager.defaultTimeState);
+                manager.ChangeTimeState(manager.defaultTimeState, registry.Get(TimeTypes.Default));
                 break;
 
             case 1:
-                manager.ChangeTimeState(manager.morningState);
+                manager.ChangeTimeState(manager.morningState, registry.Get(TimeTypes.Morning));
                 break;
 
             case 2:
-                manager.ChangeTimeState(manager.middayState);
+                manager.ChangeTimeState(manager.middayState, registry.Get(TimeTypes.Midday));
                 break;
 
             case 3:
-                manager.ChangeTimeState(manager.eveningState);
+                manager.ChangeTimeState(manager.eveningState, registry.Get(TimeTypes.Evening));
                 break;
 
             case 4:
-                manager.ChangeTimeState(manager.nightState);
+                manager.ChangeTimeState(manager.nightState, registry.Get(TimeTypes.Night));
                 break;
         }
     }

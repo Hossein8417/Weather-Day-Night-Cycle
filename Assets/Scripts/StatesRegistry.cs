@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 public enum TimeTypes { 
+    Default,
     Morning,
     Midday,
     Evening,
@@ -8,7 +9,8 @@ public enum TimeTypes {
 }
 public class StatesRegistry : MonoBehaviour
 {
-
+    [SerializeField]
+    private StatesSO defaultAsset;
     [SerializeField]
     private StatesSO morningAsset;
     [SerializeField]
@@ -23,6 +25,7 @@ public class StatesRegistry : MonoBehaviour
 
     private void Awake()
     {
+        assets.Add(TimeTypes.Default, defaultAsset);
         assets.Add(TimeTypes.Morning, morningAsset);
         assets.Add (TimeTypes.Midday, middayAsset);
         assets.Add (TimeTypes.Evening, eveningAsset);
