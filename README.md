@@ -216,13 +216,6 @@ During this project I practiced:
 
 ---
 
-# Future Improvements
-
-Planned improvements include:
-
-* Smooth transitions between weather states
-
----
 
 # Technologies
 
