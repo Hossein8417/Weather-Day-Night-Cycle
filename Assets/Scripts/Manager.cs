@@ -1,4 +1,5 @@
 using UnityEngine;
+
 public class Manager : MonoBehaviour
 {
     [SerializeField]
@@ -9,13 +10,13 @@ public class Manager : MonoBehaviour
 
     public Data data;
 
-    public IState currentTime;
-    public IState newState;
+    private TimeStateMachine timeStateMachine;
+    private WeatherStateMachine weatherStateMachine;
 
-    public IState currentWeather;
-
-    private StatesSO currentTimeSettings;
-    private StatesSO targetStateSettings;
+    public LightController lightController;
+    public MaterialController materialController;
+    public VolumeController volumeController;
+    public ParticleController particleController;
 
     public DefaultTimeState defaultTimeState;
     public MorningState morningState;
@@ -29,70 +30,116 @@ public class Manager : MonoBehaviour
     public CloudyState cloudyState;
     public SnowyState snowyState;
 
-    public LightController lightController;
-    public MaterialController materialController;
-    public VolumeController volumeController;
-    public ParticleController particleController;
-
     private void Start()
     {
+        try
+        {
+            InitializeStates();
+            InitializeStateMachines();
+            SetupTransitionEvent();
+        }
+        catch (System.Exception e)
+        {
+            Debug.LogError($"Manager initialization failed: {e.Message}");
+        }
+    }
 
+    private void InitializeStates()
+    {
         defaultTimeState = new DefaultTimeState();
         morningState = new MorningState(statesRegistry.Get(TimeTypes.Morning));
         middayState = new MiddayState(statesRegistry.Get(TimeTypes.Midday));
         eveningState = new EveningState(statesRegistry.Get(TimeTypes.Evening));
         nightState = new NightState(statesRegistry.Get(TimeTypes.Night));
+
         defaultState = new DefaultState();
         sunnyState = new SunnyState();
         rainyState = new RainyState();
         cloudyState = new CloudyState();
         snowyState = new SnowyState();
-
-        //---------------------------
-
-        currentTimeSettings = statesRegistry.Get(TimeTypes.Default);
-
-        //---------------------------
-
-        currentTime = defaultTimeState;
-        currentTime.Enter(this);
-
-        currentWeather = defaultState;                
-        currentWeather.Enter(this);
-
-        transition.OnTransitionFinished += FinishStateChange;
     }
+
+    private void InitializeStateMachines()
+    {
+        var initialTimeSettings = statesRegistry.Get(TimeTypes.Default);
+        timeStateMachine = new TimeStateMachine(defaultTimeState, initialTimeSettings, this);
+        weatherStateMachine = new WeatherStateMachine(defaultState, this);
+    }
+
+    private void SetupTransitionEvent()
+    {
+        if (transition != null)
+        {
+            transition.OnTransitionFinished += FinishTimeTransition;
+        }
+        else
+        {
+            Debug.LogWarning("Transition component is not assigned!");
+        }
+    }
+
+    private void OnDestroy()
+    {
+        if (transition != null)
+        {
+            transition.OnTransitionFinished -= FinishTimeTransition;
+        }
+    }
+
     public void ChangeWeatherState(IState newState)
     {
-        if (newState == currentWeather) return;
-
-        currentWeather.Exit(this);
-
-        currentWeather = newState;
-
-        newState.Enter(this);
+        if (weatherStateMachine == null)
+        {
+            Debug.LogError("WeatherStateMachine is not initialized!");
+            return;
+        }
+        weatherStateMachine.ChangeState(newState);
     }
 
-    public void ChangeTimeState(IState newState, StatesSO targetStateSettings)
+    public void ChangeTimeState(IState newState, StatesSO targetSettings)
     {
-        if (this.newState == currentTime) return;
-        if (this.targetStateSettings == currentTimeSettings) return;
+        if (timeStateMachine == null)
+        {
+            Debug.LogError("TimeStateMachine is not initialized!");
+            return;
+        }
 
-        this.newState = newState;
-        this.targetStateSettings = targetStateSettings;
+        if (timeStateMachine.IsTransitioning)
+        {
+            Debug.LogWarning("Transition already in progress");
+            return;
+        }
 
-        Debug.Log($"Current: {currentTimeSettings.name}");
-        Debug.Log($"Target : {this.targetStateSettings.name}");
+        var currentSettings = timeStateMachine.CurrentSettings;
 
-        transition.StartTransition(currentTimeSettings, this.targetStateSettings);
+        if (ReferenceEquals(currentSettings, targetSettings) ||
+            (currentSettings != null && targetSettings != null &&
+             currentSettings.name == targetSettings.name))
+        {
+            Debug.Log("Target state is already active");
+            return;
+        }
+
+        Debug.Log($"Starting transition from: {currentSettings?.name ?? "null"} to: {targetSettings?.name ?? "null"}");
+
+        timeStateMachine.PrepareTransition(newState, targetSettings);
+        transition?.StartTransition(currentSettings, targetSettings);
     }
 
-    public void FinishStateChange() { 
+    public void FinishTimeTransition()
+    {
+        if (timeStateMachine == null)
+        {
+            Debug.LogError("TimeStateMachine is not initialized!");
+            return;
+        }
 
-        currentTime.Exit(this);
-        currentTime = newState;
-        currentTimeSettings = targetStateSettings;
-        currentTime.Enter(this);
-        Debug.Log(currentTimeSettings.name);
+        timeStateMachine.CompleteTransition();
+        Debug.Log($"Time state changed to: {timeStateMachine.CurrentSettings?.name ?? "null"}");
     }
+
+    public IState GetCurrentTimeState() => timeStateMachine?.CurrentState;
+    public StatesSO GetCurrentTimeSettings() => timeStateMachine?.CurrentSettings;
+    public IState GetCurrentWeatherState() => weatherStateMachine?.CurrentState;
+    public bool IsTimeTransitioning() => timeStateMachine?.IsTransitioning ?? false;
 }

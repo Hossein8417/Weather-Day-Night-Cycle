@@ -10,11 +10,19 @@ public class EveningState : IState
     public void Enter(Manager manager) {
         if (manager.data != null)
         {
-            manager.lightController.ApplyLightSettings(manager.data.light, settings.lightColorTemperature, settings.lightLuxAmount, true);           
+            manager.lightController.ApplyLightSettings(
+                manager.data.light,
+                settings.lightColorTemperature,
+                settings.lightLuxAmount,
+                true);           
         }
         else Debug.LogWarning("Missing *manager*");        
     }
     public void Exit(Manager manager) {
-        manager.lightController.ApplyLightSettings(manager.data.light, settings.lightColorTemperature, settings.lightLuxAmount, false);
+        manager.lightController.ApplyLightSettings(
+            manager.data.light,
+            settings.lightColorTemperature, 
+            settings.lightLuxAmount, 
+            false);
     }
 }
